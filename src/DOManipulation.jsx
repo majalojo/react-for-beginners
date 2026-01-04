@@ -30,14 +30,31 @@ const DOManipulation = () => {
     console.log(formData);
   }
 
-  //3. native DOM manipulation
+  //3. native DOM manipulation --> UNCONTROLLED
   function nativeDomanipulation(e) {
     e.preventDefault();
-    const secondFormData = new FormData(e.currentTarget);
+    const secondFormData = new FormData(e.currentTarget); //form is a parent element and it will listen what's happening with its children elements-inputs and a button
     const user = secondFormData.get("user");
     const pass = secondFormData.get("usersPass");
     console.log(user, pass);
   }
+
+  //4. React v19
+
+  function reactv19(thirdFormData){
+    const user_name = thirdFormData.get("user_name");
+    const user_password = thirdFormData.get("user_password");
+    console.log(user_name, user_password);
+
+  }
+
+
+  //IMPORTANT!!
+  /**
+   * currentTarget vs target
+   * currentTarget refers to a first parent element which will listen for event on a child element
+   * target referes to an element which triggers the event (target.value reads value of an element)
+   */
 
   return (
     <div>
@@ -46,6 +63,7 @@ const DOManipulation = () => {
         <li>1. using a hook useState then onChange independently</li>
         <li>2. using onChange inside a form</li>
         <li>3. native DOM manipulation</li>
+        <li>React v19</li>
       </ul>
 
       <hr />
@@ -91,9 +109,18 @@ const DOManipulation = () => {
         <form onSubmit={nativeDomanipulation}>
           <input name="user" type="text" placeholder="username" />
           <input name="usersPass" type="password" placeholder="password" />
-          <button>Send</button>
+          <button type="submit">Send</button>
         </form>
       </div>
+
+      <div>
+        <form action={reactv19}>
+          <input name="user_name" type="text" placeholder="Users username" />
+          <input name="user_password" type="password" placeholder="Users password" />
+          <button type="submit">New React v19</button>
+        </form>
+      </div>
+
     </div>
   );
 };
